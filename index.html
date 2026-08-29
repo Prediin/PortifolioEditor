@@ -1,225 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dax "Predo" Studios | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="FAVICONS/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="FAVICONS/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="FAVICONS/favicon-16x16.png">
-    <link rel="manifest" href="FAVICONS/site.webmanifest">
-</head>
-<body>
-
-    <header id="game-hud">
-        <div class="hud-container">
-            <div class="brand">
-                <h1>DAX <span class="accent">'PREDO'</span> STUDIOS</h1>
-            </div>
-            
-            <nav class="main-menu">
-                <a href="#sobre" class="menu-item">[SOBRE]</a>
-                <a href="#habilidades" class="menu-item">[HABILIDADES]</a>
-                <a href="#projetos" class="menu-item">[PROJETOS]</a>
-            </nav>
-
-            <div class="social-stats">
-                <div class="social-icons">
-                    <a href="#" class="float-icon"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="float-icon delay-1"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="float-icon delay-2"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="float-icon delay-3"><i class="fa-brands fa-twitter"></i></a>
-                </div>
-                <div class="contact-info">
-                    <span><i class="fa-brands fa-whatsapp"></i> +55 (89) 99987-7756</span>
-                    <span><i class="fa-regular fa-envelope"></i> daxstudios.comissions@gmail.com</span>
-                </div>
-            </div>
-        </div>
-        <button id="hud-toggle" onclick="toggleHud()">
-            <i class="fa-solid fa-chevron-up"></i>
-        </button>
-    </header>
-
-    <main>
-        <section id="sobre" class="game-section">
-            <h2 class="section-title">SOBRE</h2>
-            <div class="about-container">
-                <div class="char-frame">
-                    <div class="char-img-placeholder">
-                        <p><img src="IMGS/Dax Icon.png" alt="Dax Logo" id="daxicon"></p>
-                    </div>
-                </div>
-                <div class="char-stats">
-                    <h3>SOBRE MIM</h3>
-                    <p class="typing-effect">
-                        Editor de vídeo apaixonado por criar narrativas visuais impactantes. 
-                        Transformo ideias brutas em conteúdo dinâmico com estilo único. 
-                        Focado em retenção e qualidade visual.
-                    </p>
-                    <div class="stat-box">
-                        <span>Nível:</span> <span class="highlight">Pro</span>
-                    </div>
-                    <div class="stat-box">
-                        <span>Classe:</span> <span class="highlight">Visual Creator</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="habilidades" class="game-section">
-            <h2 class="section-title">SKILLS</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fa-solid fa-desktop"></i> PC</h3>
-                    
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span><i class="fa-solid fa-file-video"></i> Adobe Premiere</span>
-                            <span>96%</span>
-                        </div>
-                        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width: 96%;"></div></div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span><i class="fa-solid fa-wand-magic-sparkles"></i> After Effects</span>
-                            <span>20%</span>
-                        </div>
-                        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width: 20%;"></div></div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span><i class="fa-solid fa-image"></i> Photoshop</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width: 75%;"></div></div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fa-brands fa-android"></i> MOBILE</h3>
-                    
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span><i class="fa-solid fa-scissors"></i> CapCut</span>
-                            <span>99%</span>
-                        </div>
-                        <div class="xp-bar-bg"><div class="xp-bar-fill mobile" style="width: 99%;"></div></div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span><i class="fa-solid fa-film"></i> Aligth Motion</span>
-                            <span>99%</span>
-                        </div>
-                        <div class="xp-bar-bg"><div class="xp-bar-fill mobile" style="width: 99%;"></div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projetos" class="game-section">
-            <h2 class="section-title">MISSION LOG (PROJETOS)</h2>
-            <div class="projects-grid">
-                
-                <div class="project-card">
-                    <div class="video-preview" style="background-color: #577399;">
-                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
-                    </div>
-                    <div class="project-hud">
-                        <div class="client-avatar">
-                            <a href="#" target="_blank" title="Visitar Canal">
-                                <div class="circle-avatar"></div> </a>
-                        </div>
-                        <div class="project-info">
-                            <h4>Gameplay Frenética</h4>
-                            <p class="client-desc">Edição dinâmica para canal de FPS.</p>
-                            <div class="meta-data">
-                                <span><i class="fa-regular fa-clock"></i> 4h</span>
-                                <span class="cost">
-                                    <i class="fa-solid fa-dollar-sign active"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="video-preview" style="background-color: #4C9F70;">
-                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
-                    </div>
-                    <div class="project-hud">
-                        <div class="client-avatar">
-                            <a href="#" target="_blank">
-                                <div class="circle-avatar"></div>
-                            </a>
-                        </div>
-                        <div class="project-info">
-                            <h4>Vlog Lifestyle</h4>
-                            <p class="client-desc">Cortes rápidos e color grading.</p>
-                            <div class="meta-data">
-                                <span><i class="fa-regular fa-clock"></i> 6h</span>
-                                <span class="cost">
-                                    <i class="fa-solid fa-dollar-sign active"></i>
-                                    <i class="fa-solid fa-dollar-sign active"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="video-preview" style="background-color: #FFBA49;">
-                        <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
-                    </div>
-                    <div class="project-hud">
-                        <div class="client-avatar">
-                            <a href="#" target="_blank">
-                                <div class="circle-avatar"></div>
-                            </a>
-                        </div>
-                        <div class="project-info">
-                            <h4>Reels Viral</h4>
-                            <p class="client-desc">Legendas animadas e retenção.</p>
-                            <div class="meta-data">
-                                <span><i class="fa-regular fa-clock"></i> 2h</span>
-                                <span class="cost">
-                                    <i class="fa-solid fa-dollar-sign active"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                    <i class="fa-solid fa-dollar-sign dim"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <footer id="action-bar">
-        <div class="footer-content">
-            <p>OBRIGADO POR VISITAR O PORTFÓLIO</p>
-            <div class="footer-buttons">
-                <a href="#sobre" class="mini-btn" title="Sobre"><i class="fa-solid fa-user"></i></a>
-                <a href="#habilidades" class="mini-btn" title="Habilidades"><i class="fa-solid fa-bolt"></i></a>
-                <a href="#projetos" class="mini-btn" title="Projetos"><i class="fa-solid fa-folder-open"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#223843" />
+    <meta
+      name="description"
+      content="Portfólio de Pedro Luis Bezerra Lima — editor de vídeos para YouTube, conteúdo vertical, gameplay, vídeos comerciais e motion design."
+    />
+    <meta property="og:title" content="Pedro Luis — Editor de Vídeo" />
+    <meta
+      property="og:description"
+      content="Edição com ritmo, intenção e personalidade para transformar material bruto em vídeo que prende atenção."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Pedro Luis — Editor de Vídeo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
