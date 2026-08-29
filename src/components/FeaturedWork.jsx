@@ -9,7 +9,7 @@ export default function FeaturedWork({ projects, onPlay }) {
         <div className="section-heading section-heading--light">
           <p className="eyebrow"><span>02</span> seleção principal</p>
           <h2>Trabalhos que mostram<br />como eu penso edição.</h2>
-          <p>Long-form, conteúdo comercial e vídeo vertical — formatos diferentes, a mesma preocupação com ritmo, clareza e intenção.</p>
+          <p>Vídeos longos, conteúdo comercial e vídeo vertical — formatos diferentes, a mesma preocupação com ritmo, clareza e intenção.</p>
         </div>
 
         <div className="featured-grid">

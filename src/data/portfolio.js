@@ -68,13 +68,14 @@ export const projects = [
     title: 'A TORTURANTE e INCRÍVEL experiência de SILKSONG ATO I',
     client: 'Louco de Café',
     profileInitials: 'LC',
-    profileImage: null,
+    profileImage: 'profiles/mizuki_profile.jpg',
     description:
       'Gameplay em formato de review documentada, com edição dinâmica e humor para acompanhar a experiência de Hollow Knight: Silksong.',
     software: 'Adobe Premiere Pro',
     tags: ['Gameplay', 'Review', 'Comédia', 'Long-form'],
     url: 'https://youtu.be/DWtCXisrvkg?is=AFmXWDkI6CTDem-G',
     ...youtube('DWtCXisrvkg'),
+    thumbnail: 'thumbnails/silksong.jpg',
   },
   {
     id: 'disciplina-bleidson',
@@ -84,7 +85,7 @@ export const projects = [
     title: 'Pare de amar o que você faz: Encontre a verdadeira disciplina',
     client: 'Bleidson Pereira',
     profileInitials: 'BP',
-    profileImage: null,
+    profileImage: 'profiles/bleidson_profile.jpg',
     description:
       'Vídeo motivacional e cinematográfico construído para conduzir emoção, reforçar ideias e manter o espectador conectado à mensagem.',
     software: 'Adobe Premiere Pro',
@@ -101,7 +102,7 @@ export const projects = [
     client: '@worldcel.co',
     clientUrl: 'https://www.instagram.com/worldcel.co_/',
     profileInitials: 'WC',
-    profileImage: null,
+    profileImage: 'profiles/worldcel_profile.jpg',
     description:
       'Motion design curto com animações e narração feita por mim para divulgar o serviço de conserto de aparelhos telefônicos da empresa.',
     software: 'CapCut Pro',
@@ -119,7 +120,7 @@ export const projects = [
     client: '@worldcel.co',
     clientUrl: 'https://www.instagram.com/worldcel.co_/',
     profileInitials: 'WC',
-    profileImage: null,
+    profileImage: 'profiles/worldcel_profile.jpg',
     description:
       'Review comercial do dispositivo, apresentando especificações e funções gerais em um formato rápido e direto.',
     software: 'CapCut Pro',
@@ -137,7 +138,7 @@ export const projects = [
     client: '@worldcel.co',
     clientUrl: 'https://www.instagram.com/worldcel.co_/',
     profileInitials: 'WC',
-    profileImage: null,
+    profileImage: 'profiles/worldcel_profile.jpg',
     description:
       'Vídeo de divulgação do serviço de gravação a laser para garrafas, com linguagem leve e foco comercial.',
     software: 'CapCut Pro',
@@ -155,7 +156,7 @@ export const projects = [
     client: 'Predo',
     clientUrl: 'https://www.youtube.com/@Predin._./videos',
     profileInitials: 'P',
-    profileImage: null,
+    profileImage: 'profiles/predo_profile.jpg',
     description: 'Gameplay engraçada de Overwatch 2 com foco em timing de comédia e ritmo.',
     software: 'Adobe Premiere Pro',
     tags: ['Gameplay', 'Comédia', 'YouTube', 'Autoral'],
@@ -171,7 +172,7 @@ export const projects = [
     client: 'Predo',
     clientUrl: 'https://www.youtube.com/@Predin._./videos',
     profileInitials: 'P',
-    profileImage: null,
+    profileImage: 'profiles/predo_profile.jpg',
     description:
       "Gameplay comentada do mod Indie Cross de Friday Night Funkin', combinando cortes, reação, humor e ritmo musical.",
     software: 'Adobe Premiere Pro',
@@ -188,7 +189,7 @@ export const projects = [
     client: 'Predo',
     clientUrl: 'https://www.youtube.com/@Predin._./videos',
     profileInitials: 'P',
-    profileImage: null,
+    profileImage: 'profiles/predo_profile.jpg',
     description:
       "Continuação da gameplay comentada de Indie Cross, mantendo ritmo, humor e sincronia com a proposta musical do jogo.",
     software: 'Adobe Premiere Pro',
@@ -210,7 +211,7 @@ const brawlShortLinks = [
 
 export const brawlShorts = brawlShortLinks.map((url, index) => ({
   id: `brawl-news-${index + 1}`,
-  title: `Brawl Stars — short #${String(index + 1).padStart(2, '0')}`,
+  title: `TikTok Short #${String(index + 1).padStart(2, '0')}`,
   client: '@predo._.0',
   profileUrl: 'https://www.tiktok.com/@predo._.0',
   description: 'Vídeo curto direcionado a notícias ou conteúdo de Brawl Stars.',
@@ -233,7 +234,7 @@ const editIds = [
 
 export const motionEdits = editIds.map((videoId, index) => ({
   id: `lgf-edit-${index + 1}`,
-  title: `Brawl Stars motion edit #${String(index + 1).padStart(2, '0')}`,
+  title: `TikTok Edit #${String(index + 1).padStart(2, '0')}`,
   client: '@lgf.predo',
   profileUrl: 'https://www.tiktok.com/@lgf.predo',
   description: 'Edit musical e ritmada para Brawl Stars, com foco em sincronia, impacto e motion.',

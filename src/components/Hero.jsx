@@ -36,8 +36,8 @@ export default function Hero() {
               <span>00:01:37:12</span>
             </div>
             <div className="hero-frame__screen">
-              <div className="screen-word screen-word--one">CUT</div>
-              <div className="screen-word screen-word--two">STORY</div>
+              <div className="screen-word screen-word--one">CORTE</div>
+              <div className="screen-word screen-word--two">HISTÓRIA</div>
               <div className="screen-cross" />
             </div>
             <div className="timeline" aria-hidden="true">
@@ -58,9 +58,9 @@ export default function Hero() {
       </div>
       <div className="hero-marquee" aria-hidden="true">
         <div>
-          <span>LONG-FORM</span><i>◆</i><span>SHORT-FORM</span><i>◆</i><span>MOTION</span><i>◆</i>
-          <span>GAMEPLAY</span><i>◆</i><span>COMERCIAL</span><i>◆</i><span>STORYTELLING</span><i>◆</i>
-          <span>LONG-FORM</span><i>◆</i><span>SHORT-FORM</span><i>◆</i><span>MOTION</span><i>◆</i>
+          <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
+          <span>GAMEPLAY</span><i>◆</i><span>COMERCIAL</span><i>◆</i><span>CINEMÁTICO</span><i>◆</i>
+          <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
         </div>
       </div>
     </section>
