@@ -9,6 +9,7 @@ import Skills from './components/Skills.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 import VideoModal from './components/VideoModal.jsx'
+import MotionEffects from './components/MotionEffects.jsx'
 import { brawlShorts, motionEdits, projects } from './data/portfolio.js'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <>
+      <MotionEffects />
       <Header />
       <main>
         <Hero />

@@ -32,6 +32,8 @@ npm run preview
 5. Faça um push para `main`.
 6. O workflow `.github/workflows/deploy.yml` fará o build e o deploy automaticamente.
 
+> **Importante:** se aparecer apenas “Carregando portfólio…”, confira se o GitHub Pages está em **Settings → Pages → Source → GitHub Actions**. O modo **Deploy from a branch** publica o `index.html` fonte e pode sobrescrever o build correto. Veja `GITHUB-PAGES.md`.
+
 O `vite.config.js` usa `base: './'`, deixando os assets relativos e evitando precisar colocar manualmente o nome do repositório no código.
 
 ## Onde editar seus trabalhos
@@ -132,11 +134,26 @@ Como GitHub Pages é hospedagem estática, o formulário não usa servidor e nã
 
 Isso evita API key, backend e dependências externas. Se no futuro você quiser envio silencioso direto no navegador, será necessário adicionar um serviço de formulário ou backend.
 
+## Animações e interação
+
+O componente `src/components/MotionEffects.jsx` adiciona um sistema leve de motion inspirado em interfaces móveis modernas:
+
+- entrada suave das seções conforme aparecem na tela;
+- pequenos atrasos em sequência nos cards;
+- inclinação muito sutil dos cards com o ponteiro em desktop;
+- resposta de pressão nos botões;
+- abertura suave do modal;
+- barra de progresso no topo durante a rolagem;
+- animação das barras de domínio das ferramentas;
+- respeito automático a `prefers-reduced-motion`.
+
+A maior parte da aparência está no final de `src/styles.css`, na seção `MOTION SYSTEM`.
+
 ## Performance
 
 - Nenhum player social é carregado antes do clique.
 - Thumbnails do YouTube usam `loading="lazy"` fora dos destaques.
-- Sem bibliotecas visuais ou de animação pesadas.
+- Animações próprias em CSS + `IntersectionObserver`, sem biblioteca pesada de animação.
 - Sem router, porque o portfólio é uma única página com seções.
 - `prefers-reduced-motion` respeitado.
 - Imagens usam `decoding="async"`.
@@ -153,6 +170,7 @@ src/
 │   ├── Header.jsx
 │   ├── Hero.jsx
 │   ├── Logo.jsx
+│   ├── MotionEffects.jsx
 │   ├── ProfileBadge.jsx
 │   ├── ProjectCard.jsx
 │   ├── ShortCollection.jsx

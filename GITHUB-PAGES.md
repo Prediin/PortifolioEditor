@@ -1,68 +1,50 @@
-# Publicar no GitHub Pages
+# GitHub Pages — configuração correta deste portfólio
 
-Este projeto usa React + Vite. O GitHub Pages NÃO deve publicar diretamente os arquivos `src/` da branch.
-O Vite precisa executar `npm run build` primeiro e publicar a pasta `dist/`.
+Este projeto usa **React + Vite**. O arquivo `index.html` que fica na raiz do repositório é um arquivo-fonte para o Vite; ele **não deve ser publicado diretamente** pelo modo "Deploy from a branch".
 
-## 1. Envie TODO o projeto ao GitHub
+## O problema que foi encontrado no repositório
 
-Confirme que o repositório contém também este arquivo oculto:
+No repositório `Prediin/PortifolioEditor` estavam aparecendo dois workflows diferentes:
 
-```text
-.github/workflows/deploy.yml
+- `Deploy portfolio to GitHub Pages` — o workflow correto deste projeto;
+- `pages-build-deployment` — workflow automático criado quando Pages está configurado para publicar diretamente uma branch.
+
+O primeiro workflow estava terminando com sucesso e gerando o build do Vite. Depois, o workflow automático da branch também executava e podia publicar por cima o `index.html` fonte. Como esse arquivo aponta para `/src/main.jsx`, o navegador não recebe o bundle compilado e a página fica presa em **"Carregando portfólio…"**.
+
+## Ajuste obrigatório no GitHub
+
+Faça uma única vez:
+
+1. Abra o repositório no GitHub.
+2. Entre em **Settings**.
+3. No menu lateral, abra **Pages**.
+4. Em **Build and deployment** → **Source**, escolha **GitHub Actions**.
+5. Não deixe **Deploy from a branch**.
+6. Vá até **Actions**.
+7. Abra `Deploy portfolio to GitHub Pages`.
+8. Execute novamente o workflow ou faça um novo `git push`.
+
+Depois disso, o workflow automático `pages-build-deployment` deixa de ser o método de publicação do site e o build correto em `dist/` passa a ser usado.
+
+## O workflow agora faz verificações extras
+
+`.github/workflows/deploy.yml` agora:
+
+- usa `npm ci` para reproduzir exatamente o `package-lock.json`;
+- verifica o modo atual do GitHub Pages e mostra um aviso se ainda estiver em `legacy`/branch;
+- roda `npm run build`;
+- confirma que `dist/index.html` existe;
+- falha se o arquivo final ainda apontar para `/src/main.jsx`;
+- publica somente a pasta `dist`.
+
+## Teste antes de enviar
+
+No computador:
+
+```bash
+npm install
+npm run build
+npm run preview
 ```
 
-A estrutura no GitHub deve começar aproximadamente assim:
-
-```text
-.github/
-  workflows/
-    deploy.yml
-public/
-src/
-.gitignore
-GITHUB-PAGES.md
-index.html
-package.json
-vite.config.js
-```
-
-## 2. Configure o Pages
-
-No repositório do GitHub:
-
-1. Abra `Settings`.
-2. Abra `Pages`.
-3. Em `Build and deployment`, procure `Source`.
-4. Selecione **GitHub Actions**.
-
-Não use `Deploy from a branch` para o código-fonte deste projeto Vite.
-
-## 3. Execute o deploy
-
-Depois de enviar os arquivos:
-
-1. Abra a aba `Actions` do repositório.
-2. Abra `Deploy portfolio to GitHub Pages`.
-3. Aguarde aparecer o símbolo verde de sucesso.
-
-Se o workflow ainda não tiver iniciado, faça qualquer pequeno commit na branch `main`, ou abra o workflow e clique em `Run workflow`.
-
-## 4. Se der erro
-
-Abra `Actions` > execução que falhou > etapa vermelha e copie a mensagem de erro.
-
-Erros importantes:
-
-- `Install dependencies`: problema ao instalar os pacotes npm.
-- `Build Vite application`: problema no código ou no build.
-- `Deploy to GitHub Pages`: problema na configuração do Pages/permissões.
-
-## 5. URL
-
-Para um repositório chamado `meu-portfolio`, normalmente será:
-
-```text
-https://SEU-USUARIO.github.io/meu-portfolio/
-```
-
-O `vite.config.js` detecta automaticamente o nome do repositório durante o GitHub Actions e configura o caminho correto dos assets.
+Se `npm run build` terminar sem erro, a pasta `dist/` será criada localmente. Não é necessário enviar a pasta `dist` ao GitHub quando o Pages está configurado para **GitHub Actions**.

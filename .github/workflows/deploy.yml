@@ -29,18 +29,44 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
+          cache: npm
+
+      - name: Check GitHub Pages publication mode
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BUILD_TYPE=$(curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" \
+            | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{console.log(JSON.parse(d).build_type||'unknown')}catch{console.log('unknown')}})" \
+            || true)
+
+          echo "GitHub Pages build_type: ${BUILD_TYPE:-unknown}"
+
+          if [ "$BUILD_TYPE" = "legacy" ]; then
+            echo "::warning title=GitHub Pages configurado incorretamente::O repositório ainda está em 'Deploy from a branch'. Isso cria o workflow automático pages-build-deployment e pode sobrescrever este deploy com o index.html fonte. Abra Settings > Pages > Build and deployment > Source e escolha 'GitHub Actions'."
+          fi
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: Build Vite application
         run: npm run build
 
-      - name: Verify build output
+      - name: Verify production build
+        shell: bash
         run: |
           test -f dist/index.html
-          echo "Build gerado corretamente:"
-          find dist -maxdepth 2 -type f -print
+          if grep -q '/src/main.jsx' dist/index.html; then
+            echo "O build ainda referencia /src/main.jsx; isso não deveria acontecer."
+            exit 1
+          fi
+          grep -q 'assets/' dist/index.html
+          echo "Build de produção validado."
+          find dist -maxdepth 2 -type f -print | head -80
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
