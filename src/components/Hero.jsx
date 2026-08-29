@@ -1,5 +1,7 @@
 import { profile } from '../data/portfolio.js'
 
+const logoSrc = `${import.meta.env.BASE_URL}brand-logo.png`
+
 export default function Hero() {
   return (
     <section className="hero" id="top">
@@ -18,6 +20,16 @@ export default function Hero() {
         </div>
 
         <div className="hero-art" aria-label="Composição gráfica inspirada em uma timeline de edição">
+          <div className="hero-logo-card">
+            <div className="hero-logo-card__media">
+              <img src={logoSrc} alt="Logo de Pedro Luis" />
+            </div>
+            <div className="hero-logo-card__copy">
+              <small>IDENTIDADE VISUAL</small>
+              <strong>DAX / PEDRO LUIS</strong>
+            </div>
+          </div>
+
           <div className="hero-frame">
             <div className="hero-frame__top">
               <span>SEQ_01</span>
