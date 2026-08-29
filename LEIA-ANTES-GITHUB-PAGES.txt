@@ -1,0 +1,31 @@
+CORREÇÃO DA TELA "CARREGANDO PORTFÓLIO..."
+===========================================
+
+O repositório público Prediin/PortifolioEditor estava executando DOIS métodos de publicação:
+
+1) Deploy portfolio to GitHub Pages  -> correto (React/Vite compilado)
+2) pages-build-deployment            -> publicação direta da branch
+
+O workflow correto estava finalizando com sucesso, mas a publicação da branch também rodava e podia sobrescrever o site com o index.html FONTE. Esse arquivo tenta carregar /src/main.jsx e por isso fica em "Carregando portfólio..." no GitHub Pages.
+
+FAÇA UMA VEZ NO GITHUB:
+
+Repositório -> Settings -> Pages -> Build and deployment -> Source -> GitHub Actions
+
+NÃO deixe "Deploy from a branch".
+
+Depois:
+Actions -> Deploy portfolio to GitHub Pages -> Run workflow
+
+ou faça um novo git push.
+
+O arquivo .github/workflows/deploy.yml desta versão também mostra um aviso se detectar que o Pages continua configurado no modo antigo/branch.
+
+ANIMAÇÕES
+=========
+
+As novas animações estão implementadas sem biblioteca pesada:
+- src/components/MotionEffects.jsx
+- final do arquivo src/styles.css (seção MOTION SYSTEM)
+
+Elas incluem entrada suave das seções, microinterações em botões, cards com movimento sutil, modal com abertura elástica, progresso de rolagem e barras de ferramentas animadas.

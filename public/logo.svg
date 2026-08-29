@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-labelledby="title desc">
+  <title id="title">Pedro Luis — PL Cut</title>
+  <desc id="desc">Monograma PL inspirado em janela de edição de vídeo</desc>
+  <g fill="none" fill-rule="evenodd">
+    <rect x="2" y="2" width="76" height="76" rx="16" fill="#223843"/>
+    <path d="M18 17h23c13 0 22 8 22 20 0 13-9 21-23 21h-8v9H18V17Zm14 12v17h8c6 0 10-3 10-9 0-5-4-8-10-8h-8Z" fill="#E9F1F7"/>
+    <path d="M54 54h12v12H54z" fill="#ECA400"/>
+    <path d="M12 12h9v9h-9z" fill="#E84855"/>
+    <text x="94" y="39" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#223843">PEDRO LUIS</text>
+    <text x="94" y="60" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#E84855">VIDEO EDITOR</text>
+  </g>
+</svg>
