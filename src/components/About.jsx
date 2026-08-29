@@ -11,9 +11,9 @@ export default function About() {
             Eu gosto de edição que tem personalidade, mas não compete com o conteúdo. Antes de adicionar efeito, penso no objetivo da cena: explicar, divertir, criar tensão, dar respiro ou acelerar. É essa lógica que guia meu trabalho.
           </p>
           <div className="about-stamp" aria-hidden="true">
-            <span>RHYTHM</span>
+            <span>RITMO</span>
             <strong>↻</strong>
-            <span>STORY</span>
+            <span>HISTÓRIA</span>
           </div>
         </div>
 
