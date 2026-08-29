@@ -26,15 +26,16 @@ export default function App() {
         <WorkArchive projects={projects} onPlay={setActiveProject} />
         <ShortCollection
           eyebrow="04"
-          title="Brawl Stars em formato curto."
-          description="Conteúdo autoral para TikTok focado em notícias, atualizações e assuntos do jogo. Os short links abrem na plataforma; a estrutura também aceita MP4 local como fallback."
+          title="Videos curtos que eu produzi:"
+          description='Conteúdo autoral para TikTok e YouTube Shorts. Veja abaixo os vídeos ou clique em "Original" para ser redirecionado para o vídeo na rede social.'
           items={brawlShorts}
           onPlay={setActiveProject}
+          tone="light"
         />
         <ShortCollection
           eyebrow="05"
-          title="Edits & motion no ritmo da música."
-          description="Uma sequência de trabalhos autorais para @lgf.predo, usando Alight Motion para sincronizar movimento, impacto e música em vídeos verticais."
+          title="Edits & motion que eu produzi"
+          description="Alguns dos melhores trabalhos autorais para minha conta de edits no Tiktok @lgf.predo, usando o app de edição para mobile Alight Motion."
           items={motionEdits}
           onPlay={setActiveProject}
           showViews

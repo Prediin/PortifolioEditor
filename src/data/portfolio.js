@@ -221,18 +221,18 @@ export const brawlShorts = brawlShortLinks.map((url, index) => ({
   localFile: `media/brawl-news-${String(index + 1).padStart(2, '0')}.mp4`,
 }))
 
-const editIds = [
-  '7609062580006538516',
-  '7571114098990025992',
-  '7518750945799343416',
-  '7515176039287491846',
-  '7452371192326999302',
-  '7438560253148499255',
-  '7472883936260001079',
-  '7391521948854947078',
+const editVideos = [
+  { videoId: '7609062580006538516', viewCount: 74600 },
+  { videoId: '7571114098990025992', viewCount: 17100 },
+  { videoId: '7518750945799343416', viewCount: 320800 },
+  { videoId: '7515176039287491846', viewCount: 1500000 },
+  { videoId: '7452371192326999302', viewCount: 1500000 },
+  { videoId: '7438560253148499255', viewCount: 1200000 },
+  { videoId: '7472883936260001079', viewCount: 2700000 },
+  { videoId: '7391521948854947078', viewCount: 3800000 },
 ]
 
-export const motionEdits = editIds.map((videoId, index) => ({
+export const motionEdits = editVideos.map(({ videoId, viewCount }, index) => ({
   id: `lgf-edit-${index + 1}`,
   title: `TikTok Edit #${String(index + 1).padStart(2, '0')}`,
   client: '@lgf.predo',
@@ -241,9 +241,9 @@ export const motionEdits = editIds.map((videoId, index) => ({
   software: 'Alight Motion',
   url: `https://www.tiktok.com/@lgf.predo/video/${videoId}`,
   localFile: `media/lgf-edit-${String(index + 1).padStart(2, '0')}.mp4`,
-  // TikTok does not expose a public unauthenticated view-count endpoint suitable for this static site.
-  // Fill this manually when you want the live portfolio to show an exact number.
-  viewCount: null,
+  // Troque null pelo número inteiro de visualizações, por exemplo: 125400.
+  // A seção ordena os vídeos automaticamente e destaca os 3 mais vistos.
+  viewCount,
   ...tiktok(videoId),
 }))
 

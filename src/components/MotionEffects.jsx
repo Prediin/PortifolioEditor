@@ -28,6 +28,8 @@ export default function MotionEffects() {
     const root = document.documentElement
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+
+    const revealElements = new Set()
     const interactiveCleanups = new Map()
     let revealIndex = 0
     let scrollFrame = 0
@@ -40,6 +42,7 @@ export default function MotionEffects() {
           (entries, observer) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return
+
               entry.target.classList.add('is-visible')
               observer.unobserve(entry.target)
             })
@@ -51,11 +54,14 @@ export default function MotionEffects() {
         )
 
     function registerReveal(element) {
-      if (!(element instanceof HTMLElement) || element.dataset.revealReady) return
+      if (!(element instanceof HTMLElement) || revealElements.has(element)) return
 
-      element.dataset.revealReady = 'true'
+      revealElements.add(element)
       element.classList.add('motion-reveal')
-      element.style.setProperty('--reveal-delay', `${Math.min((revealIndex % 6) * 55, 275)}ms`)
+      element.style.setProperty(
+        '--reveal-delay',
+        `${Math.min((revealIndex % 6) * 55, 275)}ms`,
+      )
       revealIndex += 1
 
       if (!revealObserver) {
@@ -69,12 +75,11 @@ export default function MotionEffects() {
     function registerInteractive(element) {
       if (
         !(element instanceof HTMLElement) ||
-        element.dataset.motionCardReady ||
+        interactiveCleanups.has(element) ||
         reduceMotion.matches ||
         !finePointer.matches
       ) return
 
-      element.dataset.motionCardReady = 'true'
       element.classList.add('motion-interactive')
 
       let pointerFrame = 0
@@ -111,6 +116,11 @@ export default function MotionEffects() {
         if (pointerFrame) cancelAnimationFrame(pointerFrame)
         element.removeEventListener('pointermove', onPointerMove)
         element.removeEventListener('pointerleave', onPointerLeave)
+        element.classList.remove('motion-interactive')
+        element.style.removeProperty('--motion-rx')
+        element.style.removeProperty('--motion-ry')
+        element.style.removeProperty('--motion-x')
+        element.style.removeProperty('--motion-y')
       })
     }
 
@@ -129,7 +139,10 @@ export default function MotionEffects() {
     function updateScrollProgress() {
       scrollFrame = 0
       const maximum = document.documentElement.scrollHeight - window.innerHeight
-      const progress = maximum > 0 ? Math.min(Math.max(window.scrollY / maximum, 0), 1) : 0
+      const progress = maximum > 0
+        ? Math.min(Math.max(window.scrollY / maximum, 0), 1)
+        : 0
+
       root.style.setProperty('--scroll-progress', progress.toFixed(4))
       root.classList.toggle('has-scrolled', window.scrollY > 18)
     }
@@ -154,11 +167,26 @@ export default function MotionEffects() {
     window.addEventListener('resize', onScroll, { passive: true })
 
     return () => {
-      root.classList.remove('motion-enabled', 'has-scrolled')
-      root.style.removeProperty('--scroll-progress')
+      /*
+       * React StrictMode executa effects duas vezes no ambiente de desenvolvimento.
+       * Por isso o cleanup precisa devolver os elementos ao estado neutro, para que
+       * a segunda execução consiga registrá-los e observá-los novamente.
+       */
       revealObserver?.disconnect()
       mutationObserver.disconnect()
+
+      revealElements.forEach((element) => {
+        element.classList.remove('motion-reveal', 'is-visible')
+        element.style.removeProperty('--reveal-delay')
+      })
+
       interactiveCleanups.forEach((cleanup) => cleanup())
+      interactiveCleanups.clear()
+      revealElements.clear()
+
+      root.classList.remove('motion-enabled', 'has-scrolled')
+      root.style.removeProperty('--scroll-progress')
+
       if (scrollFrame) cancelAnimationFrame(scrollFrame)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)

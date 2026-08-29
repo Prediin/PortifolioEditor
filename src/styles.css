@@ -117,9 +117,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .playhead::before { content: ''; position: absolute; left: -4px; top: 0; width: 10px; height: 8px; background: var(--red); clip-path: polygon(0 0, 100% 0, 50% 100%); }
 .hero-note { margin: 24px 0 0; text-align: right; text-transform: uppercase; font-size: 10px; letter-spacing: .22em; font-weight: 800; }
 .hero-marquee { border-top: 1px solid var(--line); background: var(--white); overflow: hidden; }
-.hero-marquee div { width: max-content; display: flex; gap: 22px; align-items: center; padding: 13px 0; animation: marquee 28s linear infinite; font-size: 11px; font-weight: 900; letter-spacing: .16em; }
+.hero-marquee__track { width: max-content; display: flex; align-items: center; animation: marquee 28s linear infinite; will-change: transform; }
+.hero-marquee__group { flex: 0 0 auto; display: flex; gap: 22px; align-items: center; padding: 13px 22px 13px 0; font-size: 11px; font-weight: 900; letter-spacing: .16em; white-space: nowrap; }
 .hero-marquee i { font-style: normal; color: var(--red); }
-@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 
 .section--dark { background: var(--navy); color: var(--paper); }
 .section-heading { max-width: 780px; margin-bottom: 54px; }
@@ -182,7 +183,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .short-card:nth-child(3n+2) .short-card__preview::before { background: var(--gold); }
 .short-card:nth-child(3n+3) .short-card__preview::before { background: var(--blue); }
 .short-card__number { position: absolute; left: 14px; top: 14px; font: 900 11px/1 ui-monospace, monospace; letter-spacing: .08em; }
-.short-card__play { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; left: 50%; top: 45%; transform: translate(-50%, -50%); background: var(--paper); color: var(--navy); font-size: 14px; }
+.short-card__play { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; left: 50%; top: 45%; transform: translate(-50%, -50%); transform-origin: center; will-change: transform; background: var(--paper); color: var(--navy); font-size: 14px; }
 .short-card__bars { position: absolute; display: flex; align-items: end; gap: 5px; left: 15px; right: 15px; bottom: 18px; height: 54px; }
 .short-card__bars i { flex: 1; background: rgba(233,241,247,.75); }
 .short-card__bars i:nth-child(1) { height: 37%; }
@@ -887,9 +888,18 @@ body {
     box-shadow .55s var(--ease-ios);
 }
 
-.motion-enabled .project-media:hover .play-button,
-.motion-enabled .short-card__preview:hover .short-card__play {
+.motion-enabled .project-media:hover .play-button {
   transform: translateY(-2px) scale(1.08);
+}
+
+/* O play dos cards verticais já usa translate(-50%, -50%) para ficar
+   centralizado. O hover precisa preservar essa translação. */
+.motion-enabled .short-card__preview:hover .short-card__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.motion-enabled .short-card__preview:active .short-card__play {
+  transform: translate(-50%, -50%) scale(0.96);
 }
 
 .motion-enabled .skill-row.motion-reveal .skill-meter span {
@@ -1004,5 +1014,83 @@ body {
     opacity: 1 !important;
     filter: none !important;
     transform: none !important;
+  }
+}
+
+
+/* =========================================================
+   AJUSTES — seção 04 clara + marquee infinito sem salto
+   ========================================================= */
+.short-collection--light {
+  background: var(--paper) !important;
+  color: #101416 !important;
+}
+
+.short-collection--light::before {
+  background: rgba(16, 20, 22, .16);
+}
+
+.short-collection--light .eyebrow,
+.short-collection--light .short-collection__head,
+.short-collection--light .short-collection__head h2,
+.short-collection--light .short-collection__head > p {
+  color: #223843 !important;
+}
+
+.short-collection--light .eyebrow span {
+  color: #b93844 !important;
+}
+
+.short-collection--light .short-card {
+  background: #ffffff;
+  border-color: rgba(34, 56, 67, .18);
+  box-shadow: 0 18px 44px rgba(34, 56, 67, .10);
+}
+
+.short-collection--light .short-card__body {
+  background: #ffffff;
+}
+
+.short-collection--light .short-card__body h3 {
+  color: #101416 !important;
+}
+
+.short-collection--light .short-card__body small,
+.short-collection--light .collection-note {
+  color: #52666f !important;
+}
+
+.short-collection--light .short-card__actions button {
+  color: #223843 !important;
+}
+
+.short-collection--light .short-card__actions a {
+  color: #356f8a !important;
+}
+
+.short-collection--light .short-card__actions button:hover,
+.short-collection--light .short-card__actions a:hover {
+  color: #b93844 !important;
+}
+
+.hero-marquee__track {
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hero-marquee__group {
+  min-width: max-content;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-marquee:hover .hero-marquee__track {
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee__track {
+    animation: none !important;
   }
 }

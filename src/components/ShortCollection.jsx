@@ -1,12 +1,28 @@
 function formatViews(value) {
   if (!Number.isFinite(value)) return null
-  return new Intl.NumberFormat('pt-BR', {
-    notation: 'compact',
+
+  const absoluteValue = Math.abs(value)
+  const formatNumber = (number) => new Intl.NumberFormat('pt-BR', {
     maximumFractionDigits: 1,
-  }).format(value)
+    minimumFractionDigits: 0,
+  }).format(number)
+
+  if (absoluteValue >= 1_000_000_000) {
+    return `${formatNumber(value / 1_000_000_000)} bi`
+  }
+
+  if (absoluteValue >= 1_000_000) {
+    return `${formatNumber(value / 1_000_000)} mi`
+  }
+
+  if (absoluteValue >= 1_000) {
+    return `${formatNumber(value / 1_000)} mil`
+  }
+
+  return formatNumber(value)
 }
 
-export default function ShortCollection({ title, eyebrow, description, items, onPlay, showViews = false }) {
+export default function ShortCollection({ title, eyebrow, description, items, onPlay, showViews = false, tone = 'dark' }) {
   const knownViewItems = showViews
     ? items.filter((item) => Number.isFinite(item.viewCount)).sort((a, b) => b.viewCount - a.viewCount)
     : []
@@ -17,7 +33,7 @@ export default function ShortCollection({ title, eyebrow, description, items, on
     : items
 
   return (
-    <section className="short-collection section">
+    <section className={`short-collection short-collection--${tone} section`}>
       <div className="shell">
         <div className="short-collection__head">
           <div>
@@ -60,7 +76,7 @@ export default function ShortCollection({ title, eyebrow, description, items, on
 
         {showViews && (
           <p className="collection-note">
-            * Quando os números reais forem preenchidos em <code>viewCount</code>, esta seção ordena automaticamente os vídeos e marca os 3 mais vistos. Os valores não foram inventados porque o TikTok não os entregou publicamente durante a montagem.
+            
           </p>
         )}
       </div>

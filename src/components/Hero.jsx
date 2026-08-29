@@ -57,10 +57,15 @@ export default function Hero() {
         </div>
       </div>
       <div className="hero-marquee" aria-hidden="true">
-        <div>
-          <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
-          <span>GAMEPLAY</span><i>◆</i><span>COMERCIAL</span><i>◆</i><span>CINEMÁTICO</span><i>◆</i>
-          <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
+        <div className="hero-marquee__track">
+          <div className="hero-marquee__group">
+            <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
+            <span>GAMEPLAY</span><i>◆</i><span>COMERCIAL</span><i>◆</i><span>CINEMÁTICO</span><i>◆</i>
+          </div>
+          <div className="hero-marquee__group" aria-hidden="true">
+            <span>VÍDEOS LONGOS</span><i>◆</i><span>SHORTS</span><i>◆</i><span>MOTION DESIGN</span><i>◆</i>
+            <span>GAMEPLAY</span><i>◆</i><span>COMERCIAL</span><i>◆</i><span>CINEMÁTICO</span><i>◆</i>
+          </div>
         </div>
       </div>
     </section>
