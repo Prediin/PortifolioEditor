@@ -2,9 +2,7 @@ name: Deploy portfolio to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: ['main', 'master']
   workflow_dispatch:
 
 permissions:
@@ -30,14 +28,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: lts/*
+          node-version: 24
 
-      # Usamos npm install porque o projeto ainda não possui package-lock.json.
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
       - name: Build Vite application
         run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          echo "Build gerado corretamente:"
+          find dist -maxdepth 2 -type f -print
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6

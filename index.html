@@ -16,9 +16,19 @@
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="./favicon.png" />
     <title>Pedro Luis — Editor de Vídeo</title>
+  <style>
+      html,body{margin:0;background:#05080c;color:#E9F1F7}
+      .boot-fallback{min-height:100vh;display:grid;place-content:center;text-align:center;gap:10px;font-family:Arial,sans-serif}
+      .boot-fallback strong{font-size:24px}.boot-fallback span{color:#78C0E0;font-size:13px}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-fallback" role="status">
+        <strong>Pedro Luis · Video Editor</strong>
+        <span>Carregando portfólio…</span>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
