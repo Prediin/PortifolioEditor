@@ -148,6 +148,24 @@ export const projects = [
     ...instagram('DMiBebsOtWw'),
   },
   {
+    id: 'worldcel-beneficios',
+    kind: 'client',
+    format: 'short',
+    featured: false,
+    title: 'Benefícios que você só tem aqui na World Cel',
+    client: '@worldcel.co',
+    clientUrl: 'https://www.instagram.com/worldcel.co_/',
+    profileInitials: 'WC',
+    profileImage: 'profiles/worldcel_profile.jpg',
+    description:
+      'Vídeo de divulgação dos benefícios que a World Cel fornece para você cliente.',
+    software: 'CapCut Pro',
+    tags: ['Divulgação', 'Comercial', 'Reels'],
+    url: 'https://www.instagram.com/reel/DNOSFj2u9yf/?igsi=czN4Mml5emY5dmpu',
+    localFile: 'media/worldcel-gravacao-beneficios.mp4',
+    ...instagram('DNOSFj2u9yf'),
+  },
+  {
     id: 'overwatch-overbuxa',
     kind: 'personal',
     format: 'long',
@@ -197,28 +215,45 @@ export const projects = [
     url: 'https://youtu.be/OJq87P0SzwQ',
     ...youtube('OJq87P0SzwQ'),
   },
+  {
+    id: 'indie-cross-2',
+    kind: 'personal',
+    format: 'long',
+    featured: false,
+    title: "MÚSICAS EXTRAS E O PESADELO!!! | Friday Night Funkin' Indie Cross (Parte 2)",
+    client: 'Predo',
+    clientUrl: 'https://www.youtube.com/@Predin._./videos',
+    profileInitials: 'P',
+    profileImage: 'profiles/predo_profile.jpg',
+    description:
+      "Gameoplay da série de vídeos do canal do jogo Dan The Man.",
+    software: 'Adobe Premiere Pro',
+    tags: ['Gameplay', 'Ação', 'YouTube', 'Autoral'],
+    url: 'https://youtu.be/AQ8-OP0CfHU',
+    ...youtube('AQ8-OP0CfHU'),
+  },
 ]
 
-const brawlShortLinks = [
-  'https://vt.tiktok.com/ZSVWSmaEJ/',
-  'https://vt.tiktok.com/ZSVWSS8Ad/',
-  'https://vt.tiktok.com/ZSVWSjHta/',
-  'https://vt.tiktok.com/ZSVWSkUEs/',
-  'https://vt.tiktok.com/ZSVWSaqc2/',
-  'https://vt.tiktok.com/ZSVWSrQ2H/',
-  'https://vt.tiktok.com/ZSVWSaCkr/',
+const brawlShortVideos = [
+  { videoId: '7513222915530312966' },
+  { videoId: '7509507173496442118' },
+  { videoId: '7484337712472788229' },
+  { videoId: '7483659601162865926' },
+  { videoId: '7467364651555261702' },
+  { videoId: '7466471176634682630' },
+  { videoId: '7457670165623344390' },
 ]
 
-export const brawlShorts = brawlShortLinks.map((url, index) => ({
+export const brawlShorts = brawlShortVideos.map(({ videoId }, index) => ({
   id: `brawl-news-${index + 1}`,
   title: `TikTok Short #${String(index + 1).padStart(2, '0')}`,
   client: '@predo._.0',
   profileUrl: 'https://www.tiktok.com/@predo._.0',
   description: 'Vídeo curto direcionado a notícias ou conteúdo de Brawl Stars.',
   software: 'CapCut Pro',
-  provider: 'tiktok-short-link',
-  url,
+  url: `https://www.tiktok.com/@predo._.0/video/${videoId}`,
   localFile: `media/brawl-news-${String(index + 1).padStart(2, '0')}.mp4`,
+  ...tiktok(videoId),
 }))
 
 const editVideos = [

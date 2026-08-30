@@ -10,31 +10,58 @@ const initialForm = {
   message: '',
 }
 
+function buildProjectMessage(form) {
+  return [
+    `Olá, Pedro! Meu nome é ${form.name || '________'}.`,
+    '',
+    'Tenho interesse em contratar seu serviço de edição de vídeo.',
+    '',
+    `Nome: ${form.name || 'não informado'}`,
+    `Contato: ${form.contact || 'não informado'}`,
+    `Tipo de projeto: ${form.projectType || 'não informado'}`,
+    `Orçamento/faixa: ${form.budget || 'a combinar'}`,
+    `Prazo: ${form.deadline || 'a combinar'}`,
+    '',
+    'Sobre o projeto:',
+    form.message || 'Quero conversar sobre uma edição de vídeo.',
+  ].join('\n')
+}
+
 export default function Contact() {
   const [form, setForm] = useState(initialForm)
   const [copied, setCopied] = useState(false)
 
-  const emailHref = useMemo(() => {
-    const subject = `Orçamento de edição — ${form.name || 'novo projeto'}`
-    const body = [
-      `Olá, Pedro! Meu nome é ${form.name || '________'}.`,
-      '',
-      `Tipo de projeto: ${form.projectType}`,
-      `Meu contato: ${form.contact || 'não informado'}`,
-      `Orçamento/faixa: ${form.budget || 'a combinar'}`,
-      `Prazo: ${form.deadline || 'a combinar'}`,
-      '',
-      'Sobre o projeto:',
-      form.message || 'Quero conversar sobre uma edição de vídeo.',
-    ].join('\n')
+  const messageBody = useMemo(() => buildProjectMessage(form), [form])
 
-    return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  }, [form])
+  const emailSubject = useMemo(
+    () => `Orçamento de edição — ${form.name || 'novo projeto'}`,
+    [form.name],
+  )
+
+  // Gmail Web funciona no navegador do PC mesmo quando o Windows não possui
+  // um aplicativo de e-mail configurado para links mailto:.
+  const gmailHref = useMemo(() => {
+    const params = new URLSearchParams({
+      view: 'cm',
+      fs: '1',
+      tf: 'cm',
+      to: profile.email,
+      su: emailSubject,
+      body: messageBody,
+    })
+
+    return `https://mail.google.com/mail/?${params.toString()}`
+  }, [emailSubject, messageBody])
+
+  // Mantém um fallback para quem prefere Outlook, Thunderbird ou outro
+  // aplicativo configurado como cliente de e-mail padrão do sistema.
+  const mailtoHref = useMemo(() => {
+    return `mailto:${profile.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(messageBody)}`
+  }, [emailSubject, messageBody])
 
   const whatsappHref = useMemo(() => {
-    const text = `Olá, Pedro! Tenho interesse em edição de vídeo. Meu nome é ${form.name || '___'} e o projeto é: ${form.projectType}. ${form.message}`
-    return `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(text)}`
-  }, [form])
+    return `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(messageBody)}`
+  }, [messageBody])
 
   function updateField(event) {
     const { name, value } = event.target
@@ -58,7 +85,7 @@ export default function Contact() {
           <p className="eyebrow eyebrow--light"><span>08</span> contato</p>
           <h2>Tem material bruto?<br />Vamos dar direção a ele.</h2>
           <p>
-            Conte um pouco sobre o vídeo, plataforma, prazo e o tipo de edição que você imagina. O botão abaixo abre seu aplicativo de e-mail com a mensagem já organizada.
+            Conte um pouco sobre o vídeo, plataforma, prazo e o tipo de edição que você imagina. O botão de Gmail abre uma nova mensagem no navegador com as informações do formulário já organizadas.
           </p>
 
           <div className="contact-direct">
@@ -108,10 +135,11 @@ export default function Contact() {
           </label>
 
           <div className="contact-form__footer">
-            <a className="button button--accent" href={emailHref}>Montar e-mail ↗</a>
+            <a className="button button--accent" href={gmailHref} target="_blank" rel="noreferrer">Enviar por Gmail ↗</a>
             <a className="button button--line-light" href={whatsappHref} target="_blank" rel="noreferrer">Enviar no WhatsApp</a>
+            <a className="button button--line-light" href={mailtoHref}>App de e-mail</a>
           </div>
-          <small className="form-note">Sem servidor e sem coleta de dados: o formulário apenas monta a mensagem no seu dispositivo.</small>
+          <small className="form-note">Sem servidor e sem coleta de dados: os botões apenas montam a mensagem no seu dispositivo. Para o Gmail Web, é necessário estar conectado a uma conta Google no navegador.</small>
         </form>
       </div>
     </section>
