@@ -2,9 +2,12 @@ import { useState } from 'react'
 
 export default function ProfileBadge({ project }) {
   const [imageFailed, setImageFailed] = useState(false)
+
   const image = project.profileImage
-    ? `${import.meta.env.BASE_URL}${project.profileImage}`
+    ? `${import.meta.env.BASE_URL}${project.profileImage.replace(/^\/+/, '')}`
     : null
+
+  const profileLink = project.clientUrl || project.profileUrl
 
   const content = (
     <>
@@ -17,9 +20,9 @@ export default function ProfileBadge({ project }) {
     </>
   )
 
-  if (project.clientUrl) {
+  if (profileLink) {
     return (
-      <a className="profile-badge" href={project.clientUrl} target="_blank" rel="noreferrer" aria-label={`Abrir perfil ${project.client}`}>
+      <a className="profile-badge" href={profileLink} target="_blank" rel="noreferrer" aria-label={`Abrir perfil ${project.client}`}>
         {content}
       </a>
     )

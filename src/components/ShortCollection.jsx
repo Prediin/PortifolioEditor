@@ -1,3 +1,5 @@
+import ProfileBadge from './ProfileBadge.jsx'
+
 function formatViews(value) {
   if (!Number.isFinite(value)) return null
 
@@ -20,6 +22,13 @@ function formatViews(value) {
   }
 
   return formatNumber(value)
+}
+
+function resolveThumbnail(thumbnail) {
+  if (!thumbnail) return null
+  if (/^https?:\/\//i.test(thumbnail)) return thumbnail
+
+  return `${import.meta.env.BASE_URL}${thumbnail.replace(/^\/+/, '')}`
 }
 
 export default function ShortCollection({ title, eyebrow, description, items, onPlay, showViews = false, tone = 'dark' }) {
@@ -47,23 +56,51 @@ export default function ShortCollection({ title, eyebrow, description, items, on
           {orderedItems.map((item, index) => {
             const isTop = showViews && topIds.has(item.id)
             const views = formatViews(item.viewCount)
+            const thumbnailSrc = resolveThumbnail(item.thumbnail)
+            const usesProfileThumbnail = item.thumbnailMode === 'profile'
 
             return (
               <article className={`short-card ${isTop ? 'short-card--top' : ''}`} key={item.id}>
-                <button className="short-card__preview" type="button" onClick={() => onPlay({ ...item, format: 'short' })}>
+                <button
+                  className={`short-card__preview ${usesProfileThumbnail ? 'short-card__preview--profile-thumb' : ''}`}
+                  type="button"
+                  onClick={() => onPlay({ ...item, format: 'short' })}
+                  aria-label={`Reproduzir ${item.title}`}
+                >
+                  {thumbnailSrc && (
+                    <img
+                      className="short-card__thumbnail"
+                      src={thumbnailSrc}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+
                   <span className="short-card__number">{String(index + 1).padStart(2, '0')}</span>
                   {isTop && <span className="short-card__top-badge">TOP</span>}
+                  {usesProfileThumbnail && <span className="play-blur play-blur--short" aria-hidden="true" />}
                   <span className="short-card__play">▶</span>
-                  <div className="short-card__bars" aria-hidden="true"><i /><i /><i /><i /></div>
+
+                  {!thumbnailSrc && (
+                    <div className="short-card__bars" aria-hidden="true"><i /><i /><i /><i /></div>
+                  )}
                 </button>
+
                 <div className="short-card__body">
-                  <small>{item.client} · {item.software}</small>
+                  <div className="short-card__profile">
+                    <ProfileBadge project={item} />
+                    <span>{item.software}</span>
+                  </div>
+
                   <h3>{item.title}</h3>
+
                   {showViews && (
                     <p className="view-count">
                       {views ? `${views} visualizações` : 'Visualizações: atualizar manualmente'}
                     </p>
                   )}
+
                   <div className="short-card__actions">
                     <button type="button" onClick={() => onPlay({ ...item, format: 'short' })}>Assistir</button>
                     <a href={item.url} target="_blank" rel="noreferrer">Original ↗</a>
@@ -73,12 +110,6 @@ export default function ShortCollection({ title, eyebrow, description, items, on
             )
           })}
         </div>
-
-        {showViews && (
-          <p className="collection-note">
-            
-          </p>
-        )}
       </div>
     </section>
   )
