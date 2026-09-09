@@ -20,22 +20,22 @@ export default function App() {
     <>
       <MotionEffects />
       <Header />
-      <main>
-        <Hero />
+      <main id="conteudo">
+        <Hero onPlay={setActiveProject} />
         <FeaturedWork projects={projects} onPlay={setActiveProject} />
         <WorkArchive projects={projects} onPlay={setActiveProject} />
         <ShortCollection
           eyebrow="04"
-          title="Videos curtos que eu produzi:"
-          description='Conteúdo autoral para TikTok e YouTube Shorts. Veja abaixo os vídeos ou clique em "Original" para ser redirecionado para o vídeo na rede social.'
+          title="Pequenos formatos. Muito ritmo."
+          description="Conteúdo autoral de Brawl Stars para TikTok e YouTube Shorts. Notícias, humor e cortes no tempo certo."
           items={brawlShorts}
           onPlay={setActiveProject}
           tone="light"
         />
         <ShortCollection
           eyebrow="05"
-          title="Edits & motion que eu produzi"
-          description="Alguns dos melhores trabalhos autorais para minha conta de edits no Tiktok @lgf.predo, usando o app de edição para mobile Alight Motion."
+          title="Movimento que acompanha a batida."
+          description="Edits autorais de @lgf.predo. Sincronia musical e motion criados no Alight Motion."
           items={motionEdits}
           onPlay={setActiveProject}
           showViews

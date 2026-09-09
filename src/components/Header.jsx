@@ -27,13 +27,14 @@ export default function Header() {
           type="button"
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
+          aria-controls="main-navigation"
           onClick={() => setOpen((value) => !value)}
         >
           <span />
           <span />
         </button>
 
-        <nav className={`header-nav ${open ? 'is-open' : ''}`} aria-label="Navegação principal">
+        <nav id="main-navigation" className={`header-nav ${open ? 'is-open' : ''}`} aria-label="Navegação principal">
           {links.map(([href, label]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
               {label}

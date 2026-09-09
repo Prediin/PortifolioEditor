@@ -8,8 +8,8 @@ export default function FeaturedWork({ projects, onPlay }) {
       <div className="shell">
         <div className="section-heading section-heading--light">
           <p className="eyebrow"><span>02</span> seleção principal</p>
-          <h2>Trabalhos que mostram<br />como eu penso edição.</h2>
-          <p>Vídeos longos, conteúdo comercial e vídeo vertical — formatos diferentes, a mesma preocupação com ritmo, clareza e intenção.</p>
+          <h2>Histórias diferentes.<br />A mesma intenção.</h2>
+          <p>Uma seleção de gameplay, narrativa e conteúdo comercial. Escolha um projeto e veja a edição em ação.</p>
         </div>
 
         <div className="featured-grid">
