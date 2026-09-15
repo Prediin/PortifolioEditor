@@ -1,185 +1,256 @@
 # Pedro Luis — Portfólio de Editor de Vídeo
 
-SPA em React + Vite criada para apresentar trabalhos de edição de vídeo com foco em desempenho, visual limpo e reprodução sob demanda.
+Portfólio profissional de **Pedro Luis Bezerra Lima**, criado para apresentar trabalhos de edição de vídeo, motion design e conteúdo para redes sociais. O site reúne projetos para clientes e produções autorais em uma experiência visual, responsiva e focada em levar potenciais clientes da apresentação do trabalho até o pedido de orçamento.
 
-## Stack
+O projeto é uma **Single Page Application (SPA)** feita em React. Todo o conteúdo aparece em uma única página, com navegação por seções, filtros e reprodução de vídeos sem recarregar o documento.
 
-- React 19
-- Vite 8
-- CSS puro (sem framework visual pesado)
-- GitHub Actions + GitHub Pages
+## Objetivo
 
-## Rodar localmente
+O site funciona como vitrine profissional e canal de contato. Seus objetivos são:
+
+- demonstrar experiência com vídeos longos, Shorts, Reels, TikTok, gameplay, conteúdo comercial e motion design;
+- apresentar projetos reais de clientes e trabalhos autorais;
+- informar as ferramentas usadas e o nível de domínio de cada uma;
+- explicar a abordagem criativa aplicada à edição;
+- facilitar pedidos de orçamento por Gmail, WhatsApp ou aplicativo de e-mail;
+- manter uma experiência rápida mesmo com vários vídeos incorporados.
+
+## Funcionalidades
+
+### Apresentação e navegação
+
+- cabeçalho responsivo com menu para telas menores;
+- seção inicial com chamada profissional e projeto principal em destaque;
+- navegação por âncoras para trabalhos, apresentação, ferramentas e contato;
+- layout adaptado para computadores, tablets e celulares;
+- identidade visual própria, com logo, favicon, tipografia, cores e componentes reutilizáveis.
+
+### Portfólio
+
+- seleção de trabalhos em destaque;
+- arquivo geral com filtros por projetos de clientes, autorais, long-form e short-form;
+- cards com título, cliente, descrição, software, tags, miniatura e link original;
+- coleções horizontais de vídeos verticais;
+- ordenação automática dos edits por quantidade de visualizações;
+- destaque dos três vídeos mais assistidos quando há dados disponíveis.
+
+### Reprodução de vídeo
+
+Os vídeos são carregados em um modal somente após a interação do visitante, evitando abrir todos os players externos junto com a página.
+
+- **YouTube:** player com `youtube-nocookie.com`;
+- **TikTok:** player oficial criado a partir do ID do vídeo;
+- **Instagram:** incorporação do Reel;
+- **arquivos locais:** suporte opcional a MP4 dentro de `public/media/`;
+- **fallback:** acesso ao conteúdo original quando a plataforma bloqueia a incorporação;
+- fechamento pelo botão, pela tecla `Esc` ou por clique fora do conteúdo;
+- bloqueio temporário da rolagem enquanto o player está aberto.
+
+### Contato
+
+O formulário organiza nome, contato, tipo de projeto, orçamento, prazo e descrição em uma mensagem pronta. O visitante pode:
+
+- abrir uma nova mensagem no Gmail Web;
+- enviar a mesma mensagem pelo WhatsApp;
+- usar o cliente de e-mail configurado no dispositivo;
+- copiar o endereço de e-mail com um clique.
+
+O formulário não possui backend e não armazena informações. Os dados permanecem no navegador e são usados somente para montar os links de contato.
+
+### Movimento e experiência
+
+- entrada progressiva das seções com `IntersectionObserver`;
+- animações em sequência nos cards;
+- leve inclinação com o ponteiro em dispositivos compatíveis;
+- indicador de progresso de rolagem;
+- animação das barras de domínio das ferramentas;
+- detecção de elementos inseridos dinamicamente com `MutationObserver`;
+- respeito a `prefers-reduced-motion`;
+- tela amigável para erros de renderização por meio de um React Error Boundary.
+
+## Tecnologias e linguagens
+
+| Tecnologia | Uso no projeto |
+| --- | --- |
+| **HTML5** | Documento inicial, metadados, SEO básico e fallback de carregamento |
+| **CSS3** | Layout, responsividade, identidade visual, animações e interações |
+| **JavaScript (ES Modules)** | Dados, filtros, players, formulário e comportamento da interface |
+| **React 19** | Componentização, estado e renderização da aplicação |
+| **React DOM** | Montagem da aplicação no navegador |
+| **Vite 8** | Servidor de desenvolvimento e build otimizado |
+| **GitHub Actions** | Automação do build e do deploy |
+| **GitHub Pages** | Hospedagem estática |
+
+O projeto usa CSS próprio, sem framework visual ou biblioteca externa de animação. Também não utiliza roteador, banco de dados ou servidor, pois toda a experiência acontece em uma única página estática.
+
+## Arquitetura
+
+```text
+PortifolioEditor/
+├── .github/workflows/
+│   └── deploy.yml              # Build e publicação no GitHub Pages
+├── public/
+│   ├── media/                  # Vídeos locais opcionais
+│   ├── profiles/               # Fotos dos perfis
+│   ├── thumbnails/             # Capas personalizadas
+│   ├── favicon.png
+│   └── logo.svg
+├── src/
+│   ├── components/
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── FeaturedWork.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── Hero.jsx
+│   │   ├── Logo.jsx
+│   │   ├── MotionEffects.jsx
+│   │   ├── ProfileBadge.jsx
+│   │   ├── ProjectCard.jsx
+│   │   ├── ShortCollection.jsx
+│   │   ├── Skills.jsx
+│   │   ├── VideoModal.jsx
+│   │   └── WorkArchive.jsx
+│   ├── data/
+│   │   └── portfolio.js        # Conteúdo central do site
+│   ├── App.jsx                 # Seções e estado do player
+│   ├── main.jsx                # Entrada do React e tratamento de erros
+│   ├── refinements.css         # Ajustes visuais complementares
+│   └── styles.css              # Estilos principais
+├── index.html                  # Documento base e metadados
+├── package.json                # Dependências e scripts
+└── vite.config.js              # Configuração do Vite
+```
+
+Os dados pessoais, serviços, ferramentas, filtros e projetos ficam centralizados em `src/data/portfolio.js`. Os componentes recebem essas informações por propriedades, mantendo conteúdo e apresentação separados. O `App.jsx` controla qual projeto está ativo no modal e distribui os dados entre as seções.
+
+## Executar localmente
+
+### Pré-requisitos
+
+- Node.js compatível com Vite 8;
+- npm.
 
 ```bash
+git clone https://github.com/Prediin/PortifolioEditor.git
+cd PortifolioEditor
 npm install
 npm run dev
 ```
 
-Build de produção:
+O terminal exibirá o endereço local. Para gerar e testar a versão de produção:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Publicar no GitHub Pages
+O build é criado em `dist/` e não deve ser editado manualmente.
 
-1. Crie um repositório no GitHub.
-2. Envie os arquivos deste projeto para a branch `main`.
-3. No repositório, abra **Settings → Pages**.
-4. Em **Build and deployment → Source**, escolha **GitHub Actions**.
-5. Faça um push para `main`.
-6. O workflow `.github/workflows/deploy.yml` fará o build e o deploy automaticamente.
+## Scripts
 
-> **Importante:** se aparecer apenas “Carregando portfólio…”, confira se o GitHub Pages está em **Settings → Pages → Source → GitHub Actions**. O modo **Deploy from a branch** publica o `index.html` fonte e pode sobrescrever o build correto. Veja `GITHUB-PAGES.md`.
+| Comando | Descrição |
+| --- | --- |
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera a versão otimizada em `dist/` |
+| `npm run preview` | Abre uma prévia local do build |
 
-O `vite.config.js` usa `base: './'`, deixando os assets relativos e evitando precisar colocar manualmente o nome do repositório no código.
+## Personalização do conteúdo
 
-## Onde editar seus trabalhos
+### Perfil, serviços e ferramentas
 
-Tudo fica centralizado em:
+Edite `src/data/portfolio.js`. O arquivo contém:
 
-```text
-src/data/portfolio.js
-```
+- `profile`: nome, profissão, apresentação e contatos;
+- `skills`: softwares, plataforma e percentual de domínio;
+- `services`: tipos de serviço oferecidos;
+- `projects`: portfólio principal;
+- `brawlShorts` e `motionEdits`: coleções de vídeos verticais;
+- `filters`: opções do arquivo de trabalhos.
 
-Você pode editar:
-- títulos
-- descrições
-- links
-- softwares
-- tags
-- perfil/canal
-- vídeos em destaque
-- visualizações dos edits
+### Adicionar um projeto
 
-## TikTok: visualizações
-
-Os 8 vídeos de `@lgf.predo` têm o campo:
+Inclua um objeto no array `projects`, seguindo a estrutura dos itens existentes:
 
 ```js
-viewCount: null
+{
+  id: 'identificador-unico',
+  kind: 'client',             // client ou personal
+  format: 'long',             // long ou short
+  featured: false,
+  title: 'Título do projeto',
+  client: 'Nome do cliente',
+  description: 'Resumo do trabalho realizado.',
+  software: 'Adobe Premiere Pro',
+  tags: ['YouTube', 'Gameplay'],
+  url: 'https://link-do-video',
+  ...youtube('ID_DO_VIDEO'),
+}
 ```
 
-Não foram colocados números inventados. Para exibir o valor real, altere por exemplo para:
+Os utilitários `youtube`, `instagram` e `tiktok` geram os endereços de incorporação. Em imagens e vídeos locais, use caminhos relativos a `public/`, sem uma barra no início.
+
+### Visualizações dos edits
+
+Cada item de `editVideos` possui `viewCount`. Use um número inteiro, sem pontos ou abreviações:
 
 ```js
-viewCount: 128000
+{ videoId: 'ID_DO_TIKTOK', viewCount: 320800 }
 ```
 
-Quando houver números preenchidos, a seção ordena automaticamente os vídeos do maior para o menor e marca os 3 mais vistos como destaque.
+A interface formata o valor no padrão brasileiro, ordena os vídeos do maior para o menor e marca os três primeiros como `TOP`. Se o valor não for numérico, a página solicita atualização manual.
 
-## Fallback de vídeos sociais
+### Arquivos locais e imagens
 
-YouTube usa iframe com `youtube-nocookie.com`.
-TikTok com URL completa usa o player oficial `tiktok.com/player/v1/{id}`.
-Instagram usa `/reel/{code}/embed/`.
+- MP4: coloque em `public/media/` e use `localFile: 'media/arquivo.mp4'`;
+- avatar: coloque em `public/profiles/` e use `profileImage: 'profiles/foto.jpg'`;
+- capa: coloque em `public/thumbnails/` e use `thumbnail: 'thumbnails/capa.jpg'`.
 
-Se Instagram/TikTok bloquear o embed no navegador, o modal sempre oferece o link original.
+Alguns projetos possuem caminhos de fallback configurados mesmo que o MP4 não esteja no repositório. Nesse caso, o player tenta a incorporação da plataforma ou oferece o link original.
 
-Para usar um arquivo local, coloque o `.mp4` em:
+## Desempenho e acessibilidade
 
-```text
-public/media/
-```
+- players externos carregam somente quando um projeto é aberto;
+- imagens não prioritárias usam carregamento tardio e decodificação assíncrona;
+- o destaque principal recebe prioridade de carregamento;
+- animações usam CSS e APIs nativas do navegador;
+- botões e navegação possuem rótulos ARIA e estados acessíveis;
+- resultados dos filtros são anunciados por uma região `aria-live`;
+- o modal tem semântica de diálogo, aceita `Esc` e recebe foco ao abrir;
+- a preferência por movimento reduzido é respeitada;
+- o HTML define idioma, viewport, descrição e metadados Open Graph básicos.
 
-e ajuste `localFile` em `src/data/portfolio.js`.
+## Publicação no GitHub Pages
 
-### Short links do TikTok
+O workflow `.github/workflows/deploy.yml` roda a cada push em `main` ou `master`. Ele:
 
-Os vídeos do perfil `@predo._.0` foram enviados como links `vt.tiktok.com`, sem o ID final do vídeo. Por isso o projeto deixa um slot de MP4 local pronto para cada item e também mantém o link original clicável.
+1. baixa o código;
+2. configura Node.js e cache do npm;
+3. instala dependências com `npm ci`;
+4. gera o build;
+5. verifica se `dist/index.html` usa os arquivos compilados;
+6. envia o artefato e publica no GitHub Pages.
 
-## Fotos de perfil
+No GitHub, acesse **Settings → Pages → Build and deployment** e selecione **GitHub Actions**. O modo **Deploy from a branch** pode publicar os fontes em vez do build do React. Consulte `GITHUB-PAGES.md` para diagnóstico.
 
-Por padrão, o site usa monogramas leves (WC, P, LC etc.) em vez de puxar avatares externos.
+O `vite.config.js` usa `base: './'`, gerando caminhos relativos e permitindo hospedar o site em um subdiretório do GitHub Pages sem codificar o nome do repositório nos assets.
 
-Para adicionar fotos:
+## Limitações conhecidas
 
-1. Coloque a imagem em `public/profiles/`.
-2. Em `src/data/portfolio.js`, troque:
+- Instagram e TikTok podem bloquear embeds dependendo do navegador ou da plataforma;
+- o formulário encaminha a mensagem, mas não confirma seu envio;
+- as visualizações do TikTok são informadas manualmente e não usam API;
+- arquivos MP4 grandes aumentam o repositório e o consumo de banda;
+- não há painel administrativo: mudanças são feitas no código e publicadas novamente.
 
-```js
-profileImage: null
-```
+## Licença e uso
 
-por:
+Este repositório contém código, identidade visual, textos e trabalhos pessoais. Nenhuma licença pública de reutilização foi definida; o conteúdo não deve ser considerado livre para cópia, redistribuição ou uso comercial sem autorização.
 
-```js
-profileImage: 'profiles/worldcel.jpg'
-```
+## Autor e contato
 
-## Logo e favicon
+**Pedro Luis Bezerra Lima** — Editor de vídeo
 
-O projeto inclui uma marca vetorial simples `PL` em:
-
-```text
-public/logo.svg
-public/favicon.svg
-```
-
-Se você quiser usar sua logo PNG original, basta colocar por exemplo:
-
-```text
-public/logo.png
-```
-
-e substituir o componente `src/components/Logo.jsx` por uma tag `<img>` apontando para `${import.meta.env.BASE_URL}logo.png`.
-
-Para favicon PNG, altere a linha `<link rel="icon">` em `index.html`.
-
-## Formulário de contato
-
-Como GitHub Pages é hospedagem estática, o formulário não usa servidor e não armazena dados. Ele monta uma mensagem personalizada com `mailto:` e também oferece WhatsApp.
-
-Isso evita API key, backend e dependências externas. Se no futuro você quiser envio silencioso direto no navegador, será necessário adicionar um serviço de formulário ou backend.
-
-## Animações e interação
-
-O componente `src/components/MotionEffects.jsx` adiciona um sistema leve de motion inspirado em interfaces móveis modernas:
-
-- entrada suave das seções conforme aparecem na tela;
-- pequenos atrasos em sequência nos cards;
-- inclinação muito sutil dos cards com o ponteiro em desktop;
-- resposta de pressão nos botões;
-- abertura suave do modal;
-- barra de progresso no topo durante a rolagem;
-- animação das barras de domínio das ferramentas;
-- respeito automático a `prefers-reduced-motion`.
-
-A maior parte da aparência está no final de `src/styles.css`, na seção `MOTION SYSTEM`.
-
-## Performance
-
-- Nenhum player social é carregado antes do clique.
-- Thumbnails do YouTube usam `loading="lazy"` fora dos destaques.
-- Animações próprias em CSS + `IntersectionObserver`, sem biblioteca pesada de animação.
-- Sem router, porque o portfólio é uma única página com seções.
-- `prefers-reduced-motion` respeitado.
-- Imagens usam `decoding="async"`.
-
-## Estrutura
-
-```text
-src/
-├── components/
-│   ├── About.jsx
-│   ├── Contact.jsx
-│   ├── FeaturedWork.jsx
-│   ├── Footer.jsx
-│   ├── Header.jsx
-│   ├── Hero.jsx
-│   ├── Logo.jsx
-│   ├── MotionEffects.jsx
-│   ├── ProfileBadge.jsx
-│   ├── ProjectCard.jsx
-│   ├── ShortCollection.jsx
-│   ├── Skills.jsx
-│   ├── VideoModal.jsx
-│   └── WorkArchive.jsx
-├── data/
-│   └── portfolio.js
-├── App.jsx
-├── main.jsx
-└── styles.css
-```
+- Instagram: [@predoarts1389](https://www.instagram.com/predoarts1389/)
+- E-mail: [daxstudios.comissions@gmail.com](mailto:daxstudios.comissions@gmail.com)
+- Repositório: [github.com/Prediin/PortifolioEditor](https://github.com/Prediin/PortifolioEditor)
